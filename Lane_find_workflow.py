@@ -11,6 +11,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import glob
 from moviepy.editor import VideoFileClip
+
+
 # step 1 calibrate the cam and read the image
 mtx, dist=calibration.calibrate()
 
@@ -18,8 +20,6 @@ def ImageProcessPipe(img):
     # step 2 read the image and unidtort
     undist=cv2.undistort(img,mtx,dist,None,mtx)
 
-    #cv2.imshow('undist',undist)
-    #cv2.waitKey(0)
 
     # step 3  get the threshold binaries, color, angle, and sobel
     bin_col=thresh.color(undist,80,255)
@@ -29,22 +29,11 @@ def ImageProcessPipe(img):
     combined=np.zeros_like(bin_col)
     combined=cv2.bitwise_or(bin_col,bin_sobel_x)
     combined=cv2.bitwise_and(bin_angle,combined)
-    #combined=cv2.bitwise_or(bin_grad_mag,combined)
-
-    #cv2.imshow('color',bin_col)
-    #cv2.imshow('angle',bin_angle)
-    #cv2.imshow('sobel',bin_sobel)
-    #cv2.imshow('combined thresh',combined)
-    #cv2.waitKey(0)
 
     #step 4 apply perspective transfrom
     M=transform.transform(mtx, dist)
     img_size=(img.shape[1],img.shape[0])
-    print(img_size)
-
     warped=cv2.warpPerspective(combined,M,img_size)
-    #cv2.imshow('warped',warped)
-    #cv2.waitKey(0)
 
     #step 5 plot the lines
     bin_out,left_r,right_r,left_fit_c,right_fit_c,xm_per_pix,ym_per_pix=lanes.fit_polynomial(warped)
@@ -70,10 +59,6 @@ def ImageProcessPipe(img):
     fontScale = 1
     color = (255, 0, 0)
     thickness = 2
-    #cv2.putText(unwarped,message_curve, org1, font,fontScale, color, thickness, cv2.LINE_AA)
-    #cv2.putText(unwarped,message_diff, org2, font,fontScale, color, thickness, cv2.LINE_AA)
-    #cv2.imshow('output',unwarped)
-    #cv2.waitKey(0)
 
     #step 8 add weighted back to the original
     output=cv2.addWeighted(img,0.7,unwarped,0.3,0)
