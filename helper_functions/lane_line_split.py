@@ -83,6 +83,10 @@ def fit_polynomial(binary_warped):
     #find the pixels
     leftx,rightx,lefty,righty,out_img=sliding_window(binary_warped)
 
+    # Colors in the left and right lane regions
+    out_img[lefty, leftx] = [255, 0, 0]
+    out_img[righty, rightx] = [0, 0, 255]
+
     #fit the second fit_polynomial
     left_fit=np.polyfit(lefty,leftx,2)
     right_fit=np.polyfit(righty,rightx,2)
@@ -92,16 +96,43 @@ def fit_polynomial(binary_warped):
     #get the y coord
     yplot=np.linspace(0,binary_warped.shape[0]-1,binary_warped.shape[0])
 
-    #plot
+    #plot just for visualisation
     xleft_plot=left_poly(yplot)
     xright_plot=right_poly(yplot)
-
-    out_img[lefty,leftx]=[255,0,0]
-    out_img[righty,rightx]=[0,255,0]
-
-    plt.plot(xleft_plot,yplot,color='yellow',linewidth=5)
-    plt.plot(xright_plot,yplot,color='yellow',linewidth=5)
-
+    '''
+    plt.plot(xleft_plot,yplot,color='yellow')
+    plt.plot(xright_plot,yplot,color='yellow')
     plt.imshow(out_img)
     plt.show()
-    return out_img
+
+    # does not work if we convert to int 32
+    l_points=np.array([xleft_plot,yplot])
+    l_points=l_points.reshape(-1,2)
+    cv2.polylines(out_img,[l_points],True,( 0, 255, 255 ),2 )
+
+    r_points=np.array([xright_plot,yplot],np.int32)
+    r_points=r_points.reshape(-1,2)
+    cv2.polylines(out_img,[r_points],True,( 0, 255, 255 ),2 )
+    cv2.imshow('before unwarp',out_img)
+
+    '''
+
+
+    # calculate the slope
+    #convert to real image linspace
+    ym_per_pix=30/720
+    xm_per_pix=3.7/700
+
+    left_fit_c=np.polyfit(lefty*ym_per_pix,leftx*xm_per_pix,2)
+    right_fit_c=np.polyfit(righty*ym_per_pix,rightx*xm_per_pix,2)
+
+    left_r=((1+2*left_fit_c[0]+left_fit_c[1]**2)**1.5)/np.absolute(2*left_fit_c[0])
+    right_r=((1+2*right_fit_c[0]+right_fit_c[1]**2)**1.5)/np.absolute(2*right_fit_c[0])
+
+    #draw the lane lines using fillpoly on out image
+    pts_left=np.array([np.transpose(np.vstack([xleft_plot,yplot]))])
+    pts_right=np.array([np.flipud(np.transpose(np.vstack([xright_plot,yplot])))])
+    pts=np.hstack((pts_left,pts_right))
+    cv2.fillPoly(out_img,np.int_([pts]),(0,255,0))
+
+    return out_img,left_r,right_r,left_fit_c,right_fit_c,xm_per_pix,ym_per_pix
