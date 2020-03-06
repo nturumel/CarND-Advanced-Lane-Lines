@@ -13,7 +13,6 @@ import glob
 from moviepy.editor import VideoFileClip
 # step 1 calibrate the cam and read the image
 mtx, dist=calibration.calibrate()
-images = glob.glob(r'test_images\test*.jpg')
 
 def ImageProcessPipe(img):
     # step 2 read the image and unidtort
