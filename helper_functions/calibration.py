@@ -32,12 +32,3 @@ def calibrate():
 
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, shape[0::1], None, None)
     return mtx,dist
-
-'''
-mtx,dist=calibrate()
-img=cv2.imread(r'camera_cal/calibration1.jpg')
-dst=cv2.undistort(img,mtx,dist,None,mtx)
-cv2.imshow('img',dst)
-cv2.imshow('img1',img)
-cv2.waitKey(0)
-'''
