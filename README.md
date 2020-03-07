@@ -13,10 +13,10 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/distorted image.png "Undistorted"
-[image2]: ./output_images/BE1.jpg "Fit Visual"
-[image3]: ./output_images/1.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image1]: ./output_images/distorted image.png 
+[image2]: ./output_images/BE1.jpg 
+[image3]: ./output_images/1.jpg 
+[video1]: ./project_video.mp4 
 
 ### Writeup / README
 
