@@ -1,3 +1,13 @@
+
+[//]: # (Image References)
+
+[image1]: ./output_images/distorted image.png 
+[image2]: ./output_images/BE1.jpg 
+[image3]: ./output_images/1.jpg 
+[video1]: ./project_video.mp4 
+
+---
+
 **Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
@@ -10,13 +20,6 @@ The goals / steps of this project are the following:
 * Determine the curvature of the lane and vehicle position with respect to center.
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
-
-[//]: # (Image References)
-
-[image1]: ./output_images/distorted image.png "Undistorted"
-[image2]: ./output_images/BE1.jpg "Fit Visual"
-[image3]: ./output_images/1.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
 
 ### Writeup / README
 
@@ -46,7 +49,7 @@ In the end I used sobel x the s channel and the direction of sobel.
 Since the camera does no change, I picked and image from the test images, and then picked four points in trapezoidal shape, put them in src[], and then estimates how they would look as a sqaure, then used cv2.getPerspectiveTransform(src_p,dst_p) to get the transformation matrix.
 
 ```python
-src_p=np.float32([[270,667],[1018.09,667],[496.815,520.8],[788.844,520.8]])
+    src_p=np.float32([[270,667],[1018.09,667],[496.815,520.8],[788.844,520.8]])
     dst_p=np.float32([[270,667],[1018,667],[270,520.8],[1018,520.8]])
     M=cv2.getPerspectiveTransform(src_p,dst_p)
 ```
