@@ -70,6 +70,6 @@ def ImageProcessPipe(img):
 
 
 test_output=r'output_images\videooutput.mp4'
-clip1=VideoFileClip("challenge_video.mp4")
+clip1=VideoFileClip("project_video.mp4")
 out_clip=clip1.fl_image(ImageProcessPipe)
 out_clip.write_videofile(test_output,audio=False)
