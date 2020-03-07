@@ -1,3 +1,13 @@
+
+[//]: # (Image References)
+
+[image1]: ./output_images/distorted image.png 
+[image2]: ./output_images/BE1.jpg 
+[image3]: ./output_images/1.jpg 
+[video1]: ./project_video.mp4 
+
+---
+
 **Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
@@ -10,13 +20,6 @@ The goals / steps of this project are the following:
 * Determine the curvature of the lane and vehicle position with respect to center.
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
-
-[//]: # (Image References)
-
-[image1]: ./output_images/distorted image.png 
-[image2]: ./output_images/BE1.jpg 
-[image3]: ./output_images/1.jpg 
-[video1]: ./project_video.mp4 
 
 ### Writeup / README
 
