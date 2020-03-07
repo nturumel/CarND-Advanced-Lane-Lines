@@ -1,8 +1,8 @@
 
 [//]: # (Image References)
 
-[image1]: ./output_images/distorted image.png 
-[image2]: ./output_images/BE1.jpg 
+[image1]: ./output_images/distorted_images.png 
+[image2]: ./output_images/BE1.png 
 [image3]: ./output_images/1.jpg 
 [video1]: ./project_video.mp4 
 
